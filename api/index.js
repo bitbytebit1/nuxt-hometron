@@ -14,21 +14,21 @@ app.use(open)
 app.get('/', function (req, res) {
   res.json({
     home: {
-      egUrl: 'http://localhost:8000/api/',
+      egUrl: 'http://localhost:3000/api/',
       desc: 'Home page, lists available routes'
     },
     browse: {
-      egUrl: 'http://localhost:8000/api/browse?dir=c:\\users',
+      egUrl: 'http://localhost:3000/api/browse?dir=c:\\users',
       params: 'dir - folder to browse',
       desc: 'List of files and folders'
     },
     drives: {
-      egUrl: 'http://localhost:8000/api/drives',
+      egUrl: 'http://localhost:3000/api/drives',
       params: 'none',
       desc: 'Lists available drives'
     },
     open: {
-      egUrl: 'http://localhost:8000/api/open?file=c:\\Some.txt',
+      egUrl: 'http://localhost:3000/api/open?file=c:\\Some.txt',
       params: 'file - file to execute',
       desc: 'Lists available routes'
     }
