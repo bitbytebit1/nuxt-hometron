@@ -5,17 +5,23 @@ const app = express()
 const browse = require('./routes/browse')
 const download = require('./routes/download')
 const open = require('./routes/open')
+const autoit = require('./routes/autoit')
 
 // register browse route
 app.use(browse)
 app.use(download)
 app.use(open)
+app.use(autoit)
 
 app.get('/', function (req, res) {
   res.json({
     home: {
       egUrl: 'http://localhost:3000/api/',
       desc: 'Home page, lists available routes'
+    autoitSend: {
+      egUrl: 'http://localhost:3000/api/autoit/send?key={UP}',
+      params: 'key - key to send',
+      desc: 'Sends one or more keys'
     },
     browse: {
       egUrl: 'http://localhost:3000/api/browse?dir=c:\\users',
