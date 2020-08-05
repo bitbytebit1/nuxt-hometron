@@ -33,19 +33,38 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-card>
-            <v-card-title>
-              <p>Browse files</p>
-            </v-card-title>
-            <v-card-actions>
-              <v-spacer />
+            <div class="text-center">
+              <v-icon size="100">
+                mdi-music
+              </v-icon>
+            </div>
+            <v-card-title class="text-center1 justify-center">
               <v-btn
                 color="primary"
                 nuxt
-                to="/browse"
+                to="/media"
               >
-                Continue
+                Control media
               </v-btn>
-            </v-card-actions>
+            </v-card-title>
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-card>
+            <div class="text-center">
+              <v-icon size="100">
+                mdi-mouse
+              </v-icon>
+            </div>
+            <v-card-title class="text-center1 justify-center">
+              <v-btn
+                color="primary"
+                nuxt
+                to="/mouse"
+              >
+                Move mouse
+              </v-btn>
+            </v-card-title>
           </v-card>
         </v-col>
       </v-row>
