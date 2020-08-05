@@ -59,7 +59,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        <nuxt />
+        <nuxt class="mb-14" />
       </v-container>
     </v-main>
     <v-navigation-drawer
@@ -79,12 +79,16 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer
-      :absolute="!fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    <v-bottom-navigation fixed>
+      <v-btn
+        v-for="(item, i) in items"
+        :key="i"
+        :to="item.to"
+      >
+        <span>{{ item.title }}</span>
+        <v-icon>{{ item.icon }}</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </v-app>
 </template>
 
@@ -102,9 +106,19 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'mdi-file',
+          title: 'Browse',
+          to: '/browse'
+        },
+        {
+          icon: 'mdi-music',
+          title: 'Media',
+          to: '/media'
+        },
+        {
+          icon: 'mdi-link',
+          title: 'Open link',
+          to: '/link'
         }
       ],
       miniVariant: false,

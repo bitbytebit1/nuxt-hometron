@@ -10,13 +10,22 @@
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "yarn lint:js"
   },
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0"
+    }
+  },
   "dependencies": {
     "@nuxt/content": "^1.5.0",
     "@nuxtjs/axios": "^5.12.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "autoit": "^1.1.11",
+    "cors": "^2.8.5",
     "lodash": "^4.17.19",
     "node-disk-info": "^1.1.0",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.14.0",
+    "open": "^7.1.0",
+    "v-dragged": "^0.0.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

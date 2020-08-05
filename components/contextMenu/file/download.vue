@@ -15,42 +15,42 @@ export default {
     item: { type: Object, default: () => ({}) }
   },
   methods: {
-    async action () {
+    action () {
+      const isChrome = navigator.userAgent.toLowerCase().includes('chrome')
+      const isSafari = navigator.userAgent.toLowerCase().includes('safari')
       const ENDPOINT = 'download'
       const API_QUERY = `?file=${this.item.fullPath}`
-      const data = await fetch(`${process.env.API_URL}${ENDPOINT}${API_QUERY}`)
-      const blobData = [data]
-      const blob = new Blob(blobData, { type: 'application/octet-stream' })
-      if (typeof window.navigator.msSaveBlob !== 'undefined') {
-        // IE workaround for "HTML7007: One or more blob URLs were
-        // revoked by closing the blob for which they were created.
-        // These URLs will no longer resolve as the data backing
-        // the URL has been freed."
-        window.navigator.msSaveBlob(blob, this.item.fullName)
-      } else {
-        const blobURL = (window.URL && window.URL.createObjectURL) ? window.URL.createObjectURL(blob) : window.webkitURL.createObjectURL(blob)
-        const tempLink = document.createElement('a')
-        tempLink.style.display = 'none'
-        tempLink.href = blobURL
-        tempLink.setAttribute('download', this.item.fullName)
+      console.log(`${process.env.API_URL}${ENDPOINT}${API_QUERY}`)
+      const sUrl = `${process.env.API_URL}${ENDPOINT}${API_QUERY}`
+      // const data = await fetch(`${process.env.API_URL}${ENDPOINT}${API_QUERY}`)
+      // iOS devices do not support downloading. We have to inform user about this.
+      if (/(iP)/g.test(navigator.userAgent)) {
+        alert('Your device do not support files downloading. Please try again in desktop browser.')
+        return false
+      }
 
-        // Safari thinks _blank anchor are pop ups. We only want to set _blank
-        // target if the browser does not support the HTML5 download attribute.
-        // This allows you to download files in desktop safari if pop up blocking
-        // is enabled.
-        if (typeof tempLink.download === 'undefined') {
-          tempLink.setAttribute('target', '_blank')
+      // If in Chrome or Safari - download via virtual link click
+      if (isChrome || isSafari) {
+        // Creating new link node.
+        const link = document.createElement('a')
+        link.href = sUrl
+
+        if (link.download !== undefined) {
+          // Set HTML5 download attribute. This will prevent file from opening if supported.
+          const fileName = sUrl.substring(sUrl.lastIndexOf('/') + 1, sUrl.length)
+          link.download = fileName
         }
 
-        document.body.appendChild(tempLink)
-        tempLink.click()
-
-        // Fixes "webkit blob resource error 1"
-        setTimeout(function () {
-          document.body.removeChild(tempLink)
-          window.URL.revokeObjectURL(blobURL)
-        }, 200)
+        // Dispatching click event.
+        if (document.createEvent) {
+          const e = document.createEvent('MouseEvents')
+          e.initEvent('click', true, true)
+          link.dispatchEvent(e)
+          return true
+        }
       }
+
+      window.open(sUrl, '_self')
     }
   }
 }

@@ -1,5 +1,4 @@
 import colors from 'vuetify/es5/util/colors'
-
 export default {
   /*
   ** Nuxt rendering mode
@@ -11,8 +10,8 @@ export default {
   ** See https://nuxtjs.org/api/configuration-mode
   */
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-    API_URL: `${process.env.BASE_URL || 'http://localhost:3000'}/api/`
+    baseUrl: process.env.BASE_URL || 'http://192.168.1.2:3000',
+    API_URL: `${process.env.BASE_URL || 'http://192.168.1.2:3000'}/api/`
   },
   /*
   ** Nuxt Server Middleware
@@ -52,6 +51,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    { src: '@/directives/v-dragged.js', ssr: false }
   ],
   /*
   ** Auto import components
