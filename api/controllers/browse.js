@@ -20,11 +20,20 @@ const nodeDiskInfo = require('node-disk-info')
 */
 module.exports.browse = function (req, res) {
   /* eslint-disable-next-line */
-  const folder = url.parse(req.url, true).query.dir
+  const folder = url.parse(req.url, true).query.dir.replace(/\\?$/, '\\')
   if (!folder) {
     return res.status(400).json({ error: 'dir parameter empty' })
   }
-  const ret = getFileInfoFromFolder(folder).sort((a, b) => a.isDirectory & b.isFile ? -1 : 0)
+  const sorter = (a, b) => {
+    const textA = a.name.toUpperCase()
+    const textB = b.name.toUpperCase()
+    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0
+  }
+  const ls = getFileInfoFromFolder(folder)
+  const directories = ls.filter(row => row.isDirectory).sort(sorter)
+  const files = ls.filter(row => row.isFile).sort(sorter)
+  const ret = directories.concat(files)
+
   return res.status(200).json(ret)
 }
 

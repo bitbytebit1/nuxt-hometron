@@ -1,6 +1,6 @@
-const { exec } = require('child_process')
-
+// const { exec } = require('child_process')
 const url = require('url')
+const open = require('open')
 
 /*
   URL
@@ -18,8 +18,12 @@ const url = require('url')
 */
 
 module.exports.open = function (req, res) {
+  // Escape space or brackets
+  /* eslint-disable-next-line */
+  // const file = url.parse(req.url, true).query.file.replace(/([ |\(|\)])/g, '^$1')
   /* eslint-disable-next-line */
   const file = url.parse(req.url, true).query.file
-  exec(file)
-  return res.status(200).send(`Opened ${file}`)
+  // exec(`open '${file}'`)
+  open(file)
+  return res.status(200).send({ message: `Opened ${file}` })
 }
