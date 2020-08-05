@@ -19,13 +19,13 @@
       v-else
     >
       <template v-for="(item, i) in items">
-        <file
-          v-if="item.isFile"
+        <directory
+          v-if="item.isDirectory"
           :key="i"
           :item="item"
         />
-        <directory
-          v-if="item.isDirectory"
+        <file
+          v-else
           :key="i"
           :item="item"
         />
@@ -62,7 +62,6 @@ export default {
   },
   methods: {
     changePath (event) {
-      console.log(event)
       this.$router.push({
         name: 'browse',
         ...event
