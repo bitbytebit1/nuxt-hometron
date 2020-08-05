@@ -101,11 +101,6 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
           icon: 'mdi-file',
           title: 'Browse',
           to: '/browse'
@@ -119,6 +114,11 @@ export default {
           icon: 'mdi-link',
           title: 'Open link',
           to: '/link'
+        },
+        {
+          icon: 'mdi-mouse',
+          title: 'Move mouse',
+          to: '/mouse'
         }
       ],
       miniVariant: false,
