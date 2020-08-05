@@ -52,6 +52,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    { src: '@/directives/v-dragged.js', ssr: false },
   ],
   /*
   ** Auto import components
