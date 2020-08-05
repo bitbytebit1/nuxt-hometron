@@ -1,5 +1,15 @@
+// const fs = require('fs')
+// const path = require('fs')
+// const https = require('https')
 const express = require('express')
+const cors = require('cors')
 const app = express()
+app.use(cors())
+
+// const options = {
+//   cert: fs.readFileSync(path.resolve(__dirname, 'cert.pem')),
+//   key: fs.readFileSync(path.resolve(__dirname, 'key.pem'))
+// }
 
 // browse routes
 const browse = require('./routes/browse')
@@ -19,7 +29,8 @@ app.get('/', function (req, res) {
   res.json({
     home: {
       egUrl: 'http://localhost:3000/api/',
-      desc: 'Home page, lists available routes'
+      desc: 'Lists available routes'
+    },
     autoitSend: {
       egUrl: 'http://localhost:3000/api/autoit/send?key={UP}',
       params: 'key - key to send',
@@ -30,6 +41,11 @@ app.get('/', function (req, res) {
       params: 'dir - folder to browse',
       desc: 'List of files and folders'
     },
+    download: {
+      egUrl: 'http://localhost:3000/api/download?file=c:\\Some.txt',
+      params: 'file - a file to download',
+      desc: 'Download a file'
+    },
     drives: {
       egUrl: 'http://localhost:3000/api/drives',
       params: 'none',
@@ -37,8 +53,9 @@ app.get('/', function (req, res) {
     },
     open: {
       egUrl: 'http://localhost:3000/api/open?file=c:\\Some.txt',
-      params: 'file - file to execute',
-      desc: 'Lists available routes'
+      params: 'file - file or url to execute',
+      desc: 'Opens a file or url'
+    },
     preview: {
       egUrl: 'http://localhost:3000/api/preview?file=c:\\Some.txt',
       params: 'file - a file to preview',
@@ -46,6 +63,11 @@ app.get('/', function (req, res) {
     }
   })
 })
+
+// const server = https.createServer(options, app)
+// server.listen(8001, function () {
+//   console.log('server running at https://IP_ADDRESS:8001/')
+// })
 
 module.exports = {
   path: '/api/',
