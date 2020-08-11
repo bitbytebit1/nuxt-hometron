@@ -1,6 +1,7 @@
 // needs <= node 11.15.0
 const url = require('url')
 const au = require('autoit')
+
 /*
   URL
     /api/autoit/send
@@ -20,6 +21,20 @@ module.exports.send = function (req, res) {
   const ret = au.Send(key)
   return res.status(200).json({ message: 'Sent', key, returnValue: ret })
 }
+
+module.exports.exec = function (req, res) {
+  /* eslint-disable-next-line */
+  const { command, params } = url.parse(req.url, true).query
+  let ret
+  if (Array.isArray(params)) {
+    ret = au[command](...params)
+  } else {
+    ret = au[command](params)
+  }
+  console.log({ command, params, ret })
+  return res.status(200).json({ command, params, ret })
+}
+
 module.exports.winlist = function (req, res) {
   const path = require('path')
   const { exec } = require('child_process')
