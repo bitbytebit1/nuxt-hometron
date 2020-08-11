@@ -93,39 +93,14 @@
 </template>
 
 <script>
+import { routes } from '@/constants/routes.js'
 export default {
   data () {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-file',
-          title: 'Browse',
-          to: '/browse'
-        },
-        {
-          icon: 'mdi-music',
-          title: 'Media',
-          to: '/media'
-        },
-        {
-          icon: 'mdi-link',
-          title: 'Open link',
-          to: '/link'
-        },
-        {
-          icon: 'mdi-mouse',
-          title: 'Move mouse',
-          to: '/mouse'
-        }
-      ],
+      items: routes,
       miniVariant: false,
       right: true,
       rightDrawer: false,

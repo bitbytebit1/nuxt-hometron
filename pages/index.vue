@@ -3,7 +3,7 @@
     <v-col
       v-for="(item, i) in items"
       :key="i"
-      cols="12"
+      cols="6"
       md="6"
     >
       <v-card>
@@ -28,31 +28,11 @@
 
 <script>
 
+import { routes } from '@/constants/routes.js'
 export default {
   data () {
     return {
-      items: [
-        {
-          icon: 'mdi-file',
-          title: 'Browse',
-          to: '/browse'
-        },
-        {
-          icon: 'mdi-music',
-          title: 'Media',
-          to: '/media'
-        },
-        {
-          icon: 'mdi-link',
-          title: 'Open link',
-          to: '/link'
-        },
-        {
-          icon: 'mdi-mouse',
-          title: 'Move mouse',
-          to: '/mouse'
-        }
-      ]
+      items: routes
     }
   }
 }
