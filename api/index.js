@@ -17,6 +17,7 @@ const download = require('./routes/download')
 const open = require('./routes/open')
 const autoit = require('./routes/autoit')
 const preview = require('./routes/preview')
+const deleteRoute = require('./routes/delete')
 
 // register browse route
 app.use(browse)
@@ -24,6 +25,7 @@ app.use(download)
 app.use(open)
 app.use(autoit)
 app.use(preview)
+app.use(deleteRoute)
 
 app.get('/', function (req, res) {
   res.json({
@@ -60,6 +62,11 @@ app.get('/', function (req, res) {
       egUrl: 'http://localhost:3000/api/preview?file=c:\\Some.txt',
       params: 'file - a file to preview',
       desc: 'Preview a file'
+    },
+    delete: {
+      egUrl: 'http://localhost:3000/api/delete?file=c:\\Some.txt',
+      params: 'file - a file or folder to delete',
+      desc: 'Send a file to the recycle bin'
     }
   })
 })

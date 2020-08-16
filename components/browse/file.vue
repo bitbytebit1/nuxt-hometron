@@ -11,7 +11,10 @@
       <v-list-item-title v-text="item.fullName" />
     </v-list-item-content>
     <v-list-item-action>
-      <contextMenu :item="item" />
+      <contextMenu
+        :item="item"
+        v-on="$listeners"
+      />
     </v-list-item-action>
   </v-list-item>
 </template>
@@ -35,6 +38,16 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.v-list-item__title{
+  overflow: visible;
+  text-overflow: initial;
+  white-space: normal;
+  word-break: break-all;
+}
+/* .file .v-list-item__title{
+  overflow: visible;
+  text-overflow: initial;
+  white-space: normal;
+} */
 </style>

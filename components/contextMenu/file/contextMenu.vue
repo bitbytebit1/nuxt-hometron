@@ -17,7 +17,11 @@
       <download :item="item" />
       <copyFilePath :item="item" />
       <open :item="item" />
-      <!-- <preview :item="item" /> -->
+      <preview :item="item" />
+      <deletebutton
+        :item="item"
+        v-on="$listeners"
+      />
     </v-list>
   </v-menu>
 </template>
@@ -26,13 +30,16 @@
 import download from './download.vue'
 import copyFilePath from './copyFilePath.vue'
 import open from './open.vue'
-// import preview from './preview.vue'
+import preview from './preview.vue'
+import deletebutton from './delete.vue'
+
 export default {
   components: {
     download,
     open,
-    copyFilePath
-    // preview,
+    copyFilePath,
+    deletebutton,
+    preview
   },
   props: {
     item: { type: Object, default: () => ({}) }
