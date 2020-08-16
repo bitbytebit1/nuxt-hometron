@@ -1,19 +1,18 @@
 <template>
-  <div class="text-center">
+  <div>
     <v-dialog
       v-model="dialog"
       width="1000"
     >
-      <template v-slot:activator="{ on, attrs }">
+      <template v-slot:activator>
         <BaseListItem
-          title="preview"
-          v-bind="attrs"
+          title="Preview"
           @click.native="dialog = true"
         />
       </template>
 
       <v-card>
-        <iframe src="http://localhost:3000/api/download?file=c:\\users\\tribe\\desktop\\a-football-pitch-vector-27142681.jpg" />
+        <iframe :src="`http://localhost:3000/api/preview?file=${item.fullPath}`" />
       </v-card>
     </v-dialog>
   </div>
@@ -24,6 +23,9 @@ import BaseListItem from '@/components/base/baseListItem.vue'
 export default {
   components: {
     BaseListItem
+  },
+  props: {
+    item: { type: Object, default: () => ({}) }
   },
   data () {
     return {
