@@ -2,7 +2,6 @@
   <v-card>
     <currentPath
       :path="$route.query.dir"
-      class="mb-2"
       @changePath="changePath($event)"
     />
     <template v-if="isDriveView">
@@ -23,11 +22,13 @@
           v-if="item.isDirectory"
           :key="i"
           :item="item"
+          @refreshDir="refreshDir"
         />
         <file
-          v-else
+          v-if="item.isFile"
           :key="i"
           :item="item"
+          @refreshDir="refreshDir"
         />
       </template>
     </template>
@@ -35,10 +36,19 @@
 </template>
 
 <script>
+
 import currentPath from '@/components/browse/currentPath.vue'
 import drive from '@/components/browse/drive.vue'
 import file from '@/components/browse/file.vue'
 import directory from '@/components/browse/directory.vue'
+
+async function fetchDir (API_QUERY) {
+  const API_URL = process.env.API_URL
+  const ENDPOINT = API_QUERY ? 'browse' : 'drives'
+  const data = await fetch(`${API_URL}${ENDPOINT}${API_QUERY}`).then(res => res.json())
+  return { items: data }
+}
+
 export default {
   components: {
     currentPath,
@@ -47,13 +57,14 @@ export default {
     file
   },
   watchQuery: ['dir'],
-  async asyncData ({ query }) {
-    const API_URL = process.env.API_URL
+  asyncData ({ query }) {
     const API_QUERY = 'dir' in query ? `?dir=${query.dir.replace(/\\?$/, '\\')}` : ''
-    const ENDPOINT = API_QUERY ? 'browse' : 'drives'
-    console.log(`${API_URL}${ENDPOINT}${API_QUERY}`)
-    const data = await fetch(`${API_URL}${ENDPOINT}${API_QUERY}`).then(res => res.json())
-    return { items: data }
+    return fetchDir(API_QUERY)
+  },
+  data () {
+    return {
+      items: []
+    }
   },
   computed: {
     isDriveView () {
@@ -61,6 +72,10 @@ export default {
     }
   },
   methods: {
+    async refreshDir () {
+      const API_QUERY = 'dir' in this.$route.query ? `?dir=${this.$route.query.dir.replace(/\\?$/, '\\')}` : ''
+      this.items = await fetchDir(API_QUERY).then(({ items }) => items)
+    },
     changePath (event) {
       this.$router.push({
         name: 'browse',
@@ -70,7 +85,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
