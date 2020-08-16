@@ -79,11 +79,12 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-bottom-navigation fixed>
+    <v-bottom-navigation fixed shift>
       <v-btn
         v-for="(item, i) in items"
         :key="i"
         :to="item.to"
+        nuxt
       >
         <span>{{ item.title }}</span>
         <v-icon>{{ item.icon }}</v-icon>
@@ -129,3 +130,9 @@ export default {
   }
 }
 </script>
+<style>
+.v-item-group.v-bottom-navigation .v-btn{
+    max-width: 111px !important;
+    min-width: 62px !important;
+}
+</style>
