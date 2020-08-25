@@ -1,17 +1,30 @@
 // const fs = require('fs')
 // const path = require('fs')
-// const https = require('https')
-const express = require('express')
-const cors = require('cors')
-const app = express()
-app.use(cors())
 
+// const https = require('https')
 // const options = {
 //   cert: fs.readFileSync(path.resolve(__dirname, 'cert.pem')),
 //   key: fs.readFileSync(path.resolve(__dirname, 'key.pem'))
 // }
+// const server = https.createServer(options, app)
+// server.listen(8001, function () {
+//   console.log('server running at https://IP_ADDRESS:8001/')
+// })
 
-// browse routes
+const express = require('express')
+const cors = require('cors')
+/* eslint-disable-next-line */
+// const db = require('./db')
+const app = express()
+
+// Use CORS
+app.use(cors())
+
+// Init body-parser options (inbuilt with express)
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+// Require & Import API routes
 const browse = require('./routes/browse')
 const download = require('./routes/download')
 const open = require('./routes/open')
@@ -20,7 +33,7 @@ const preview = require('./routes/preview')
 const deleteRoute = require('./routes/delete')
 const tpb = require('./routes/tpb')
 
-// register browse route
+// register routes
 app.use(browse)
 app.use(download)
 app.use(open)
@@ -72,11 +85,6 @@ app.get('/', function (req, res) {
     }
   })
 })
-
-// const server = https.createServer(options, app)
-// server.listen(8001, function () {
-//   console.log('server running at https://IP_ADDRESS:8001/')
-// })
 
 module.exports = {
   path: '/api/',
