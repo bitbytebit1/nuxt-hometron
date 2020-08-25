@@ -6,7 +6,7 @@
           x-large
           text
           icon
-          @click="send('{LEFT}')"
+          @click="action('{LEFT}')"
         >
           <v-icon>mdi-skip-backward</v-icon>
         </v-btn>
@@ -14,7 +14,7 @@
           x-large
           text
           icon
-          @click="send('{MEDIA_PREV}')"
+          @click="action('{MEDIA_PREV}')"
         >
           <v-icon>mdi-skip-previous</v-icon>
         </v-btn>
@@ -22,7 +22,7 @@
           x-large
           text
           icon
-          @click="send('{MEDIA_PLAY_PAUSE}')"
+          @click="action('{MEDIA_PLAY_PAUSE}')"
         >
           <v-icon>mdi-pause</v-icon>
         </v-btn>
@@ -30,7 +30,7 @@
           x-large
           text
           icon
-          @click="send('{MEDIA_NEXT}')"
+          @click="action('{MEDIA_NEXT}')"
         >
           <v-icon>mdi-skip-next</v-icon>
         </v-btn>
@@ -38,7 +38,7 @@
           x-large
           text
           icon
-          @click="send('{RIGHT}')"
+          @click="action('{RIGHT}')"
         >
           <v-icon>mdi-skip-forward</v-icon>
         </v-btn>
@@ -60,7 +60,7 @@
           x-large
           text
           icon
-          @click="send('{VOLUME_MUTE}')"
+          @click="action('{VOLUME_MUTE}')"
         >
           <v-icon>mdi-volume-mute</v-icon>
         </v-btn>
@@ -79,7 +79,7 @@
           x-large
           text
           icon
-          @click="send('f')"
+          @click="action('f')"
         >
           <v-icon>mdi-fullscreen</v-icon>
         </v-btn>
@@ -101,12 +101,12 @@ export default {
       clearInterval(this.interval)
     },
     sendMultiple (key) {
-      this.send(key)
+      this.action(key)
       this.interval = setInterval(() => {
-        this.send(key)
+        this.action(key)
       }, 500)
     },
-    async send (key) {
+    async action (key) {
       const API_URL = process.env.API_URL
       const API_QUERY = '?key=' + key
       const ENDPOINT = 'autoit/send'
