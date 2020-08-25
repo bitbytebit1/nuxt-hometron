@@ -18,6 +18,7 @@ const open = require('./routes/open')
 const autoit = require('./routes/autoit')
 const preview = require('./routes/preview')
 const deleteRoute = require('./routes/delete')
+const tpb = require('./routes/tpb')
 
 // register browse route
 app.use(browse)
@@ -26,6 +27,7 @@ app.use(open)
 app.use(autoit)
 app.use(preview)
 app.use(deleteRoute)
+app.use(tpb)
 
 app.get('/', function (req, res) {
   res.json({
