@@ -13,6 +13,14 @@
           :item="item"
         />
       </template>
+      <v-list-item
+        nuxt
+        :to="{name: 'tpb'}"
+      >
+        <v-list-item-content>
+          <v-list-item-title>TPB:</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </template>
     <template
       v-else
