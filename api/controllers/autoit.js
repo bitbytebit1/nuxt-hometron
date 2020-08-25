@@ -1,7 +1,7 @@
 // needs <= node 11.15.0
 const url = require('url')
 const au = require('autoit')
-
+au.Init()
 /*
   URL
     /api/autoit/send
@@ -20,6 +20,48 @@ module.exports.send = function (req, res) {
   const key = url.parse(req.url, true).query.key
   const ret = au.Send(key)
   return res.status(200).json({ message: 'Sent', key, returnValue: ret })
+}
+
+/*
+  URL
+    /api/autoit/mouse
+
+  Parameters
+    x,y - coordinates
+
+  Return value
+    HTTP 200 - Mouse moved
+
+  Example
+    http://localhost:3000/api/autoit/mouse?x=0&y=0
+*/
+module.exports.mouse = function (req, res) {
+  /* eslint-disable-next-line */
+  const position = url.parse(req.url, true).query
+  const currentPos = au.MouseGetPos()
+  const newPosition = { x: currentPos.x + (+position.x), y: currentPos.y + (+position.y) }
+  const ret = au.MouseMove(newPosition.x, newPosition.y, 0)
+  return res.status(200).json({ message: 'MouseMove', currentPos, position, newPosition, returnValue: ret })
+}
+
+/*
+  URL
+    /api/autoit/click
+
+  Parameters
+    button - which mouse button to click
+
+  Return value
+    HTTP 200 - Mouse clicked
+
+  Example
+    http://localhost:3000/api/autoit/click?button=left
+*/
+module.exports.click = function (req, res) {
+  /* eslint-disable-next-line */
+  const button = url.parse(req.url, true).query.button
+  const ret = au.MouseClick(button)
+  return res.status(200).json({ message: 'MouseClick', button, returnValue: ret })
 }
 
 module.exports.exec = function (req, res) {
