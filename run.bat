@@ -1,2 +1,2 @@
-yarn start
+yarn dev
 pause
