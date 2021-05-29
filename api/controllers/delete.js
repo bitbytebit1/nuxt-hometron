@@ -18,7 +18,7 @@ const trash = require('trash')
 
 module.exports.delete = async function (req, res) {
   /* eslint-disable-next-line */
-  const file = url.parse(req.url, true).query.file
+  const file = decodeURIComponent(url.parse(req.url, true).search.split('?file=')[1])
   await trash(file)
   return res.status(200).send({ message: `Deleted ${file}` })
 }

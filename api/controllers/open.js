@@ -14,7 +14,7 @@ const open = require('open')
     HTTP 400 - File not opened
 
   Example
-    http://localhost:3000/api/open?dir=C:\Some.txt
+    http://localhost:3000/api/open?file=C:\Some.txt
 */
 
 module.exports.open = function (req, res) {
@@ -22,7 +22,8 @@ module.exports.open = function (req, res) {
   /* eslint-disable-next-line */
   // const file = url.parse(req.url, true).query.file.replace(/([ |\(|\)])/g, '^$1')
   /* eslint-disable-next-line */
-  const file = url.parse(req.url, true).query.file
+  const file = decodeURIComponent(url.parse(req.url, true).search.split('?file=')[1])
+
   // exec(`open '${file}'`)
   open(file)
   return res.status(200).send({ message: `Opened ${file}` })

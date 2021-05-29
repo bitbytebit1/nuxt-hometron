@@ -5,7 +5,7 @@ const mime = require('mime')
 
 module.exports.download = function (req, res) {
   /* eslint-disable-next-line */
-  const file = url.parse(req.url, true).query.file
+  const file = decodeURIComponent(url.parse(req.url, true).search.split('?file=')[1])
   const filename = path.basename(file)
   const mimetype = mime.getType(file)
 

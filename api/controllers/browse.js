@@ -1,10 +1,11 @@
+/* eslint-disable */
 import { File } from '../models/file.js'
 import { Disk } from '../models/disk.js'
 const fs = require('fs')
 const url = require('url')
 const path = require('path')
+const querystring = require('querystring')
 const nodeDiskInfo = require('node-disk-info')
-
 /*
   URL
     /api/browse
@@ -20,7 +21,8 @@ const nodeDiskInfo = require('node-disk-info')
 */
 module.exports.browse = function (req, res) {
   /* eslint-disable-next-line */
-  const folder = url.parse(req.url, true).query.dir.replace(/\\?$/, '\\')
+  const folder = decodeURIComponent(url.parse(req.url, true).search.split('?dir=')[1])
+  console.log(folder)
   if (!folder) {
     return res.status(400).json({ error: 'dir parameter empty' })
   }
