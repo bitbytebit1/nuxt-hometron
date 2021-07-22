@@ -10,5 +10,6 @@ router.get('/autoit/winlist', controller.winlist)
 router.get('/autoit/exec', controller.exec)
 router.get('/autoit/mouse', controller.mouse)
 router.get('/autoit/click', controller.click)
+router.get('/autoit/cast', controller.cast)
 
 module.exports = router

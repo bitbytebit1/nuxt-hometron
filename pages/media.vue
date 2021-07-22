@@ -83,6 +83,23 @@
         >
           <v-icon>mdi-fullscreen</v-icon>
         </v-btn>
+        <v-btn
+          x-large
+          text
+          icon
+          @click="cast"
+        >
+          <v-icon>mdi-cast</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col align-self="end">
+        <v-btn
+          x-large
+          text
+          @click="skipIntro"
+        >
+          Skip intro
+        </v-btn>
       </v-col>
     </v-row>
   </v-card>
@@ -97,6 +114,12 @@ export default {
     }
   },
   methods: {
+    async cast () {
+      const API_URL = window.location.origin
+      const API_ENDPOINT = '/api/autoit/cast'
+      console.log(`${API_URL}${API_ENDPOINT}`)
+      await fetch(`${API_URL}${API_ENDPOINT}`).then(res => res.json())
+    },
     clearMulitple () {
       clearInterval(this.interval)
     },

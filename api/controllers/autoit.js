@@ -1,6 +1,8 @@
 // needs <= node 11.15.0
 const url = require('url')
+// const fs = require('fs')
 const au = require('autoit')
+// const screenshot = require('window-screenshot')
 au.Init()
 /*
   URL
@@ -97,6 +99,49 @@ module.exports.winlist = function (req, res) {
         }
       }
     }
+    // for (let i = 0; i < windows.length; i++) {
+    //   const element = windows[i]
+    //   console.log('saving', element.title)
+    //   screenshot(element.title, // 0 is for active window
+    //     function (err, res) {
+    //       if (err) { return console.log(err) }
+    //       fs.writeFile(`${element.title}.png`, res)
+    //     })
+    // }
     return res.status(200).json(windows)
+  })
+}
+
+/*
+  URL
+    /api/autoit/cast
+
+  Parameters
+    None
+
+  Return value
+    HTTP 200 - Started casting
+
+  Example
+    http://localhost:3000/api/autoit/cast
+*/
+module.exports.cast = function (req, res) {
+  const path = require('path')
+  const { exec } = require('child_process')
+  const exePath = path.resolve('./autoit-scripts/CastDesktop.exe')
+  exec(exePath, (error, stdout, stderr) => {
+    if (error) {
+      return
+    }
+    // for (let i = 0; i < windows.length; i++) {
+    //   const element = windows[i]
+    //   console.log('saving', element.title)
+    //   screenshot(element.title, // 0 is for active window
+    //     function (err, res) {
+    //       if (err) { return console.log(err) }
+    //       fs.writeFile(`${element.title}.png`, res)
+    //     })
+    // }
+    return res.status(200).json({})
   })
 }
