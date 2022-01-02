@@ -28,8 +28,8 @@ export default {
   },
   methods: {
     async action () {
-      const API_URL = process.env.API_URL
-      const API_ENDPOINT = 'open'
+      const API_URL = window.location.origin
+      const API_ENDPOINT = '/api/open'
       const API_QUERY = '?file=' + this.item
       console.log(`${API_URL}${API_ENDPOINT}${API_QUERY}`)
       await fetch(`${API_URL}${API_ENDPOINT}${API_QUERY}`).then(res => res.json())

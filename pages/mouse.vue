@@ -11,7 +11,7 @@
 export default {
   mounted () {
     const box = document.getElementById('mouse')
-    const useThrottle = true
+    const useThrottle = false
     const offset = { x: 0, y: 0 }
     let throttle = 0
     let touchDown = false
@@ -42,15 +42,15 @@ export default {
   },
   methods: {
     async action (x, y) {
-      const API_URL = process.env.API_URL
-      const API_ENDPOINT = 'autoit/mouse'
+      const API_URL = window.location.origin
+      const API_ENDPOINT = '/api/autoit/mouse'
       const API_QUERY = `?x=${x}&y=${y}`
       // console.log(`${API_URL}${API_ENDPOINT}${API_QUERY}`)
       await fetch(`${API_URL}${API_ENDPOINT}${API_QUERY}`).then(res => res.json())
     },
     async click (button) {
-      const API_URL = process.env.API_URL
-      const API_ENDPOINT = 'autoit/click'
+      const API_URL = window.location.origin
+      const API_ENDPOINT = '/api/autoit/click'
       const API_QUERY = `?button=${button}`
       // console.log(`${API_URL}${API_ENDPOINT}${API_QUERY}`)
       await fetch(`${API_URL}${API_ENDPOINT}${API_QUERY}`).then(res => res.json())

@@ -3,6 +3,8 @@ Opt("SendKeyDelay", 100) ;~ Match any substring in the window title
 
 Global $chromeTitle = "Google Chrome"
 
+Global $previouslyOpenedWindow = WinGetHandle('[ACTIVE]')
+
 If (Not WinExists($chromeTitle)) Then
   ShellExecute("chrome.exe", "--start-maximized")
   Sleep(500)
@@ -23,12 +25,14 @@ Sleep(1050)
 
 
 ;~ Select desktop
-Send('{TAB}{TAB}{ENTER}{DOWN}{DOWN}{ENTER}')
+Send('{TAB}{TAB}{TAB}{ENTER}{DOWN}{DOWN}{ENTER}')
 
 ;~ Start stream request
-Send('+{TAB}{ENTER}{TAB}')
+Send('+{TAB}{ENTER}')
 
-;~ Sleep(500)
+Sleep(150)
 
 ;~ Select first screen
-Send('{ENTER}')
+Send('{TAB}{ENTER}')
+
+WinActivate($previouslyOpenedWindow)

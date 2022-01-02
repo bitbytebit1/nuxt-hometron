@@ -14,8 +14,8 @@
         </div>
         <v-card-title class="justify-center">
           <v-btn
-            color="primary"
             nuxt
+            outlined
             :to="item.to"
           >
             {{ item.title }}
@@ -37,3 +37,6 @@ export default {
   }
 }
 </script>
+<style>
+
+</style>

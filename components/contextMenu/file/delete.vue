@@ -16,9 +16,9 @@ export default {
   },
   methods: {
     async action () {
-      const ENDPOINT = 'delete'
+      const API_ENDPOINT = '/api/delete'
       const API_QUERY = `?file=${this.item.fullPath}`
-      await fetch(`${process.env.API_URL}${ENDPOINT}${API_QUERY}`)
+      await fetch(`${window.location.origin}${API_ENDPOINT}${API_QUERY}`)
       this.$emit('refreshDir')
     }
   }

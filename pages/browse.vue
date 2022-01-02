@@ -1,9 +1,11 @@
 <template>
   <v-card>
+    <!-- Chips -->
     <currentPath
       :path="$route.query.dir"
       @changePath="changePath($event)"
     />
+    <!-- Drives -->
     <template v-if="isDriveView">
       <template
         v-for="(item, i) in items"
@@ -51,7 +53,7 @@ import file from '@/components/browse/file.vue'
 import directory from '@/components/browse/directory.vue'
 
 async function fetchDir (API_QUERY) {
-  const API_URL = process.env.API_URL
+  const API_URL = process.client ? window.location.origin + '/api/' : process.env.API_URL
   const ENDPOINT = API_QUERY ? 'browse' : 'drives'
   const data = await fetch(`${API_URL}${ENDPOINT}${API_QUERY}`).then(res => res.json())
   return { items: data }
@@ -71,7 +73,8 @@ export default {
   },
   data () {
     return {
-      items: []
+      items: [],
+      query: ''
     }
   },
   computed: {
@@ -85,10 +88,7 @@ export default {
       this.items = await fetchDir(API_QUERY).then(({ items }) => items)
     },
     changePath (event) {
-      this.$router.push({
-        name: 'browse',
-        ...event
-      })
+      this.$router.push({ name: 'browse', ...event })
     }
   }
 }

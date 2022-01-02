@@ -18,11 +18,11 @@ export default {
     action () {
       const isChrome = navigator.userAgent.toLowerCase().includes('chrome')
       const isSafari = navigator.userAgent.toLowerCase().includes('safari')
-      const ENDPOINT = 'download'
+      const API_ENDPOINT = '/api/download'
       const API_QUERY = `?file=${this.item.fullPath}`
-      console.log(`${process.env.API_URL}${ENDPOINT}${API_QUERY}`)
-      const sUrl = `${process.env.API_URL}${ENDPOINT}${API_QUERY}`
-      // const data = await fetch(`${process.env.API_URL}${ENDPOINT}${API_QUERY}`)
+      console.log(`${window.location.origin}${API_ENDPOINT}${API_QUERY}`)
+      const sUrl = `${window.location.origin}${API_ENDPOINT}${API_QUERY}`
+      // const data = await fetch(`${window.location.origin}${ENDPOINT}${API_QUERY}`)
       // iOS devices do not support downloading. We have to inform user about this.
       if (/(iP)/g.test(navigator.userAgent)) {
         alert('Your device do not support files downloading. Please try again in desktop browser.')

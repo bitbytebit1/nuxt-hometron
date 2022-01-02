@@ -27,8 +27,8 @@ export default {
   methods: {
     async getDescription () {
       // this.loaded = false
-      const API_URL = process.env.API_URL
-      const API_ENDPOINT = 'tpb/id'
+      const API_URL = window.location.origin
+      const API_ENDPOINT = '/api/tpb/id'
       const API_QUERY = `?id=${this.id}`
       const resp = await fetch(`${API_URL}${API_ENDPOINT}${API_QUERY}`).then(res => res.json())
       this.description = resp.description

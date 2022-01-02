@@ -1,23 +1,29 @@
+import fs from 'fs'
+import path from 'path'
 import colors from 'vuetify/es5/util/colors'
 export default {
-  /*
-  ** Nuxt rendering mode
-  ** See https://nuxtjs.org/api/configuration-mode
-  */
-  mode: 'universal',
+  // server: {
+  //   https: {
+  //     key: fs.readFileSync(path.resolve(__dirname, 'server.key')),
+  //     cert: fs.readFileSync(path.resolve(__dirname, 'server.crt'))
+  //   }
+  // },
   /*
   ** Nuxt environment variables
   ** See https://nuxtjs.org/api/configuration-mode
   */
   env: {
-    baseUrl: process.env.BASE_URL || 'http://192.168.1.2:3000',
-    API_URL: `${process.env.BASE_URL || 'http://192.168.1.2:3000'}/api/`
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    API_URL: (process.env.BASE_URL || 'http://localhost:3000') + '/api/'
+    // API_URL: `${process.env.BASE_URL || 'http://192.168.1.5:3000'}/api/`
+    // baseUrl: process.env.BASE_URL || 'http://192.168.1.5:3000',
   },
   /*
   ** Nuxt Server Middleware
   ** See https://nuxtjs.org/api/configuration-servermiddleware/
   */
   serverMiddleware: [
+    // 'redirect-ssl', // upgrades to from http to https?
     { path: '/api', handler: '~/api/index.js' }
   ],
   /*
@@ -51,7 +57,8 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
-    { src: '@/directives/v-dragged.js', ssr: false }
+    { src: '@/directives/v-dragged.js', ssr: false },
+    '@/plugins/axios'
   ],
   /*
   ** Auto import components

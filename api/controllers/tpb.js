@@ -53,7 +53,7 @@ function searchByQuery (keyword, page = 1, sortBy = '99', category = 0) {
         torrent.seeders = $(this).find('td:nth-child(3)').text()
         torrent.leechers = $(this).find('td:nth-child(4)').text()
         torrent.url = $(this).find('a.detLink').attr('href')
-        torrent.magnet = $(this).find('td:nth-child(2)').find('a:nth-child(2)').attr('href')
+        torrent.magnetlink = $(this).find('td:nth-child(2)').find('a:nth-child(2)').attr('href')
         torrent.verified = $(this).find('img[title="VIP"]').attr('title') === 'VIP' || $(this).find('img[title="Trusted"]').attr('title') === 'Trusted'
         torrent.author = $(this).find('font a.detDesc').text() || 'Anonymous'
         torrent.link = $(this).find('div.detName a').attr('href') || ''
@@ -126,7 +126,7 @@ function getTorrentById (id) {
         .trim()
       const id = $('input[name=id]').attr('value') || ''
       const link = `${tpbURL}/torrent/${id}`
-      const magnet = $('a[title="Get this torrent"]').attr('href') || ''
+      const magnetlink = $('a[title="Get this torrent"]').attr('href') || ''
       const description =
           $('div.nfo')
             .text()
@@ -139,7 +139,7 @@ function getTorrentById (id) {
         seeders,
         leechers,
         uploadDate,
-        magnet,
+        magnetlink,
         link,
         id,
         description,

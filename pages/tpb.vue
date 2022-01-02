@@ -45,7 +45,7 @@
             :key="i"
           >
             <v-list-item
-              @click="click(item)"
+              @click="addTorrent(item)"
             >
               <!-- {{ item }} -->
               <v-list-item-content>
@@ -136,7 +136,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import sortBy from '@/components/tpb/sortBy'
 import chooseCategory from '@/components/tpb/chooseCategory'
 import description from '@/components/tpb/torrentDescription'
@@ -210,8 +209,8 @@ export default {
     async search (page) {
       this.searchResults = []
       this.loading = true
-      const API_URL = process.env.API_URL
-      const API_ENDPOINT = 'tpb/search'
+      const API_URL = window.location.origin
+      const API_ENDPOINT = '/api/tpb/search'
       const API_QUERY = `?query=${this.searchQuery}&page=${page}&sortBy=${this.sortBy}&category=${this.category}`
       console.log(`${API_URL}${API_ENDPOINT}${API_QUERY}`)
       const resp = await fetch(`${API_URL}${API_ENDPOINT}${API_QUERY}`).then(res => res.json())
@@ -221,12 +220,12 @@ export default {
       this.totalPages = +resp.meta.totalPages
       this.loading = false
     },
-    click (item) {
-      const API_URL = process.env.API_URL
-      const API_ENDPOINT = 'open'
-      const API_QUERY = `?file=${item.magnet}`
-      console.log(`${API_URL}${API_ENDPOINT}${API_QUERY}`)
-      fetch(`${API_URL}${API_ENDPOINT}${API_QUERY}`)
+    addTorrent (item) {
+      const API_URL = window.location.origin
+      const API_ENDPOINT = '/api/qbittorrent/add'
+      const { magnetlink, name } = item
+      console.log({ magnetlink, name })
+      this.$axios.post(`${API_URL}${API_ENDPOINT}`, { magnetlink, name })
     }
   }
 }
